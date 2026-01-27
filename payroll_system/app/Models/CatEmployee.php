@@ -17,6 +17,13 @@ class CatEmployee extends Model
     protected $table = 'cat_employees';
 
     /**
+     * The primary key associated with the table.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'id';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>

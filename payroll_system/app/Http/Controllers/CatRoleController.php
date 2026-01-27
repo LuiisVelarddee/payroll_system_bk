@@ -17,7 +17,8 @@ class CatRoleController extends Controller
 
         // Filter by status if provided
         if ($request->has('statusRole')) {
-            $query->where('statusRole', $request->statusRole);
+            $statusRole = filter_var($request->statusRole, FILTER_VALIDATE_BOOLEAN);
+            $query->where('statusRole', $statusRole);
         }
 
         // Get all roles or paginate

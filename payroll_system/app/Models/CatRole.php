@@ -27,6 +27,7 @@ class CatRole extends Model
         'bonusRole',
         'bonusHours',
         'bonusDeliveries',
+        'is_admin',
         'userCreation',
         'dateCreation',
         'userUpdate',
@@ -47,6 +48,7 @@ class CatRole extends Model
         'dateCreation' => 'datetime',
         'dateUpdate' => 'datetime',
         'statusRole' => 'boolean',
+        'is_admin' => 'boolean',
     ];
 
     /**

@@ -18,17 +18,20 @@ class CatUserController extends Controller
 
         // Filter by status if provided
         if ($request->has('statusUser')) {
-            $query->where('statusUser', $request->statusUser);
+            $statusUser = filter_var($request->statusUser, FILTER_VALIDATE_BOOLEAN);
+            $query->where('statusUser', $statusUser);
         }
 
         // Filter by blocked status
         if ($request->has('isBlock')) {
-            $query->where('isBlock', $request->isBlock);
+            $isBlock = filter_var($request->isBlock, FILTER_VALIDATE_BOOLEAN);
+            $query->where('isBlock', $isBlock);
         }
 
         // Filter by admin status
         if ($request->has('is_admin')) {
-            $query->where('is_admin', $request->is_admin);
+            $isAdmin = filter_var($request->is_admin, FILTER_VALIDATE_BOOLEAN);
+            $query->where('is_admin', $isAdmin);
         }
 
         // Search by employee number
