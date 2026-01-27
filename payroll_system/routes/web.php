@@ -19,6 +19,16 @@ Route::prefix('api/roles')->group(function () {
     Route::patch('/{id}/restore', [CatRoleController::class, 'restore']); // PATCH - Restaurar role
 });
 
+// Rutas para el CRUD de CatEmployee
+Route::prefix('api/employees')->group(function () {
+    Route::get('/', [CatEmployeeController::class, 'index']); // GET - Listar empleados
+    Route::post('/', [CatEmployeeController::class, 'store']); // POST - Crear empleado
+    Route::get('/{id}', [CatEmployeeController::class, 'show']); // GET - Ver un empleado
+    Route::put('/{id}', [CatEmployeeController::class, 'update']); // PUT - Actualizar empleado
+    Route::delete('/{id}', [CatEmployeeController::class, 'destroy']); // DELETE - Desactivar empleado
+    Route::patch('/{id}/restore', [CatEmployeeController::class, 'restore']); // PATCH - Restaurar empleado
+});
+
 // Rutas para el CRUD de CatUser
 Route::prefix('api/users')->group(function () {
     Route::get('/', [CatUserController::class, 'index']); // GET - Listar usuarios
