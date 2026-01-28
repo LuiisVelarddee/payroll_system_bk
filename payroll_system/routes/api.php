@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CatRoleController;
 use App\Http\Controllers\CatEmployeeController;
 use App\Http\Controllers\CatUserController;
+use App\Http\Controllers\PayrollController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,4 +43,15 @@ Route::middleware('api')->group(function () {
         Route::delete('/{id}', [CatUserController::class, 'destroy']); // DELETE - Desactivar usuario
         Route::patch('/{id}/restore', [CatUserController::class, 'restore']); // PATCH - Restaurar usuario
     });
+
+    // Rutas para Nómina (Payroll)
+    Route::prefix('payroll')->group(function () {
+        Route::get('/', [PayrollController::class, 'index']); // GET - Listar nóminas
+        Route::post('/', [PayrollController::class, 'store']); // POST - Crear nómina
+        Route::get('/{id}', [PayrollController::class, 'show']); // GET - Ver una nómina
+        Route::put('/{id}', [PayrollController::class, 'update']); // PUT - Actualizar nómina
+        Route::delete('/{id}', [PayrollController::class, 'destroy']); // DELETE - Desactivar nómina
+        Route::patch('/{id}/restore', [PayrollController::class, 'restore']); // PATCH - Restaurar nómina
+    });
 });
+

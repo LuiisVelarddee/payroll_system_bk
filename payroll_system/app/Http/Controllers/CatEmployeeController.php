@@ -20,7 +20,8 @@ class CatEmployeeController extends Controller
 
         // Filter by status if provided
         if ($request->has('statusEmployee')) {
-            $query->where('statusEmployee', $request->statusEmployee);
+            $statusEmployee = filter_var($request->statusEmployee, FILTER_VALIDATE_BOOLEAN);
+            $query->where('statusEmployee', $statusEmployee);
         }
 
         // Filter by role if provided
