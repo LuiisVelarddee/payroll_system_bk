@@ -6,6 +6,7 @@ use App\Http\Controllers\CatRoleController;
 use App\Http\Controllers\CatEmployeeController;
 use App\Http\Controllers\CatUserController;
 use App\Http\Controllers\PayrollController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +53,15 @@ Route::middleware('api')->group(function () {
         Route::put('/{id}', [PayrollController::class, 'update']); // PUT - Actualizar nómina
         Route::delete('/{id}', [PayrollController::class, 'destroy']); // DELETE - Desactivar nómina
         Route::patch('/{id}/restore', [PayrollController::class, 'restore']); // PATCH - Restaurar nómina
+    });
+
+    // Rutas para Dashboard
+    Route::prefix('dashboard')->group(function () {
+        Route::get('/stats', [DashboardController::class, 'getStats']); // GET - Estadísticas generales
+        Route::get('/monthly-trend', [DashboardController::class, 'getMonthlyTrend']); // GET - Tendencia mensual
+        Route::get('/expense-distribution', [DashboardController::class, 'getExpenseDistribution']); // GET - Distribución de gastos
+        Route::get('/employee-details', [DashboardController::class, 'getEmployeeDetails']); // GET - Detalles por empleado
+        Route::get('/available-years', [DashboardController::class, 'getAvailableYears']); // GET - Años disponibles
     });
 });
 
