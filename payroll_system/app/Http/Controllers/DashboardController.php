@@ -25,6 +25,7 @@ class DashboardController extends Controller
 
         $stats = $query->select(
             DB::raw('SUM(netSalary) as totalPayroll'),
+            DB::raw('SUM(baseSalary) as totalBaseSalary'),
             DB::raw('SUM(deliveries) as totalDeliveries'),
             DB::raw('SUM(hourBonus + deliveryBonus) as totalBonuses'),
             DB::raw('SUM(isr) as totalDeductions')
@@ -33,10 +34,11 @@ class DashboardController extends Controller
         return response()->json([
             'success' => true,
             'data' => [
-                'totalPayroll' => $stats->totalPayroll ?? 0,
-                'totalDeliveries' => $stats->totalDeliveries ?? 0,
-                'totalBonuses' => $stats->totalBonuses ?? 0,
-                'totalDeductions' => $stats->totalDeductions ?? 0,
+                'totalPayroll' => floatval($stats->totalPayroll ?? 0),
+                'totalBaseSalary' => floatval($stats->totalBaseSalary ?? 0),
+                'totalDeliveries' => intval($stats->totalDeliveries ?? 0),
+                'totalBonuses' => floatval($stats->totalBonuses ?? 0),
+                'totalDeductions' => floatval($stats->totalDeductions ?? 0),
             ]
         ], 200);
     }
@@ -130,6 +132,7 @@ class DashboardController extends Controller
                 return [
                     'employeeNumber' => $payroll->employee->employeeNumber ?? 'N/A',
                     'name' => $payroll->employee->nameEmployee ?? 'N/A',
+                    'baseSalary' => $payroll->baseSalary ?? 0,
                     'hoursWorked' => 192, // 8 hours * 6 days * 4 weeks
                     'deliveryPayment' => $payroll->deliveryBonus ?? 0,
                     'deductions' => $payroll->isr ?? 0,
@@ -151,6 +154,7 @@ class DashboardController extends Controller
                     $employeeData[$employeeId] = [
                         'employeeNumber' => $payroll->employee->employeeNumber ?? 'N/A',
                         'name' => $payroll->employee->nameEmployee ?? 'N/A',
+                        'baseSalary' => 0,
                         'hoursWorked' => 0,
                         'deliveryPayment' => 0,
                         'deductions' => 0,
@@ -160,6 +164,7 @@ class DashboardController extends Controller
                 }
                 
                 // Sum values for the year
+                $employeeData[$employeeId]['baseSalary'] += $payroll->baseSalary ?? 0;
                 $employeeData[$employeeId]['hoursWorked'] += 192; // 192 hours per month
                 $employeeData[$employeeId]['deliveryPayment'] += $payroll->deliveryBonus ?? 0;
                 $employeeData[$employeeId]['deductions'] += $payroll->isr ?? 0;
