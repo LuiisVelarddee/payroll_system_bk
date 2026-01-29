@@ -12,7 +12,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:4200', 'http://localhost:49676'],
+    'allowed_origins' => ['http://localhost:4200', 'http://localhost:49676', 'http://slategray-skunk-476267.hostingersite.com'],
 
     'allowed_origins_patterns' => [],
 
